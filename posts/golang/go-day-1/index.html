@@ -1,0 +1,262 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Guide golang"><title>Go教程-Day1</title><link rel=canonical href=https://example.com/posts/golang/go-day-1/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Go教程-Day1"><meta property="og:description" content="Guide golang"><meta property="og:url" content="https://example.com/posts/golang/go-day-1/"><meta property="og:site_name" content="阿飞的工作日志"><meta property="og:type" content="article"><meta property="article:section" content="Posts"><meta property="article:tag" content="go"><meta property="article:published_time" content="2019-03-05T00:00:00+00:00"><meta property="article:modified_time" content="2019-03-05T00:00:00+00:00"><meta name=twitter:title content="Go教程-Day1"><meta name=twitter:description content="Guide golang"></head><body class="article-page keep-sidebar"><script>(function(){const colorSchemeKey='StackColorScheme';if(!localStorage.getItem(colorSchemeKey)){localStorage.setItem(colorSchemeKey,"auto");}})();</script><script>(function(){const colorSchemeKey='StackColorScheme';const colorSchemeItem=localStorage.getItem(colorSchemeKey);const supportDarkMode=window.matchMedia('(prefers-color-scheme: dark)').matches===true;if(colorSchemeItem=='dark'||colorSchemeItem==='auto'&&supportDarkMode){document.body.dataset.scheme='dark';}else{document.body.dataset.scheme='light';}})();</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><h1 class=site-name><a href=https://example.com>阿飞的工作日志</a></h1><h2 class=site-description>每天一个小技巧</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>首页</span></a></li><li><a href=/about><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>关于</span></a></li><li><a href=/archives><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>档案</span></a></li><li><a href=/search><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>搜索</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/go/>go</a></header><h2 class=article-title><a href=/posts/golang/go-day-1/>Go教程-Day1</a></h2><h3 class=article-subtitle>Guide golang</h3><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Mar 05, 2019</time></footer></div></header><section class=article-content><h1 id=变量>变量</h1><p><code>请注意阅读代码中的注释</code></p><pre><code>// main包
+package main
+
+// 导入 fmt包
+import &quot;fmt&quot;
+
+// 主函数
+func main() {
+	// int变量声明 默认值0填充
+	var money int
+	// 用fmt包进行输出
+	fmt.Println(&quot;how much money you have left : &quot;, money)
+	// 输出 how much money you have left : 0
+
+	// int变量声明 并赋值
+	var money2 int = 1000
+	// 用fmt包进行输出
+	fmt.Println(&quot;how much money you have left : &quot;, money2)
+	// 输出 how much money you have left : 1000
+
+	/**
+	 *自动推断值类型
+	 */
+	var money3 = 9999
+	// 简短自动推断类型 此用法最多
+	money4 := 8888
+	fmt.Println(&quot;money 3 is :&quot;, money3, &quot;money4 is :&quot;, money4)
+	// 批量声明推断变量
+	var a1, a2, a3, a4 = 100, &quot;0xFFFF&quot;, false, 0xFFFFFFF
+
+	fmt.Println(&quot;a1 is &quot;, a1, &quot;; a2 is&quot;, a2, &quot;; a3 is&quot;, a3, &quot;; a4 is&quot;, a4)
+	//a1 数值int, a2 字符串, a3 bool , a4 16进制
+	//a1 is  100 ; a2 is 0xFFFF ; a3 is false ; a4 is 268435455
+
+	// 使用16进制时需注意 溢出问题 0xFFFFFFFF 连续32个1的内存
+	// var a = 0xFFFFFFFF
+	// fmt.Println(a)
+	// 上面的实例将输出 constant 4294967295 overflows int
+
+	//批量声明固定类型的变量
+	var k1, k2 = 100, 88
+	fmt.Println(&quot;k1 is &quot;, k1, &quot;; k2 is&quot;, k2)
+
+	// 涵盖声明
+	var (
+		version = &quot;1.1.1&quot;
+		port    = 9501
+		name    = &quot;user-srv&quot;
+	)
+	fmt.Printf(&quot;%v Server is starting in port %v. version : %v . &quot;, name, port, version)
+	// user-srv Server is starting in port 9501. version : 1.1.1 . 
+}
+</code></pre><h2 id=go语言中的类型>go语言中的类型</h2><ol><li>bool</li><li>数字类型</li><li>int8, int16, int32, int64, int</li><li>uint8, uint16, uint32, uint64, uint</li><li>float32, float64</li><li>complex64, complex128</li><li>byte</li><li>rune</li><li>string</li></ol><pre><code>
+package main
+
+import (
+	&quot;fmt&quot;
+	&quot;unicode/utf8&quot;
+)
+
+func main() {
+	// 布尔类型
+	boolT := true
+	boolT = false
+	fmt.Println(&quot;布尔类型的输出: &quot;, boolT)
+	//布尔类型的输出:  false
+
+	// 关于数值类型的说明
+	// 凡是带 u + 类型的均为 无符号类型 例如 uint8 是无符号的8位正整数 0-255
+
+	// int8类型 -128-127
+	// uint8类型 0 ~ 255
+	var int8T int8 = 127
+	var uint8T uint8 = 255
+	// 指定的类型不能超出数值范围，否则发生overflow 其他的类型同理
+	//var int8T int8 = 128
+	//constant 128 overflows int8
+	fmt.Println(&quot;8位数值的类型的输出: &quot;, int8T)
+	fmt.Println(&quot;无符号8位数值的类型的输出: &quot;, uint8T)
+	/**
+	8位数值的类型的输出:  127
+	无符号8位数值的类型的输出:  255
+	*/
+
+	//int16 -32768～32767
+	//uint16 0～65535
+	var int16T int16 = 127
+	var uint16T uint16 = 65535
+
+	fmt.Println(&quot;int16T 的类型的输出: &quot;, int16T)
+	fmt.Println(&quot;uint16T 的类型的输出: &quot;, uint16T)
+	/**
+	int16T 的类型的输出:  127
+	uint16T 的类型的输出:  65535
+	*/
+
+	//int32 ：-2147483648～2147483647
+	//uint32 :  0～4294967295
+	var int32T int32 = 2147483647
+	var uint32T uint32 = 4294967295
+
+	fmt.Println(&quot;int32T 的类型的输出: &quot;, int32T)
+	fmt.Println(&quot;uint32T 的类型的输出: &quot;, uint32T)
+	/**
+	int32T 的类型的输出:  2147483647
+	uint32T 的类型的输出:  4294967295
+	*/
+
+	//int64 : -9223372036854775808～9223372036854775807
+	//uint64: 0～18446744073709551615
+	var int64T int64 = 9223372036854775807
+	var uint64T uint64 = 18446744073709551615
+
+	fmt.Println(&quot;int64T 的类型的输出: &quot;, int64T)
+	fmt.Println(&quot;uint64T 的类型的输出: &quot;, uint64T)
+	/**
+	int64T 的类型的输出:  9223372036854775807
+	uint64T 的类型的输出:  18446744073709551615
+	*/
+
+	// int 和 uint 都是根据系统的位数自行调节
+	// 32 位系统 : -2147483648～2147483647
+	// 64 位系统 : -9223372036854775808～9223372036854775807
+	var intT int = 9223372036854775807
+
+	//uint：表示 32 或 64 位无符号整型。(取决于系统的位数)
+	// 32 位系统 ：  0～4294967295，
+	// 64 位系统 ： 0～18446744073709551615
+	var uintT uint = 18446744073709551615
+
+	fmt.Println(&quot;intT 的类型的输出: &quot;, intT)
+
+	fmt.Println(&quot;uintT 的类型的输出: &quot;, uintT)
+	/**
+	intT 的类型的输出:  9223372036854775807
+	uintT 的类型的输出:  18446744073709551615
+	*/
+
+	/**
+	Float 数值类型
+
+	*/
+	// float32 3.402823466385288598117041834516925440e +38	1.401298464324817070923729583289916131280e -45
+	// float32 大约可提供6位小数 1 左移 24位
+
+	var float32T float32 = 16777216
+	// IEEE754
+	// 因float32 累计计算扩散 请尽量使用float64
+	fmt.Println(&quot;float32T 的类型的输出: &quot;, float32T == float32T+1)
+
+	var float64T float64 = 16777216
+	fmt.Println(&quot;float64T 的类型的输出: &quot;, float64T == float64T+1)
+
+	const Avogadro = 6.02214129e23 // 阿伏伽德罗常数
+	const Planck = 6.62606957e-34  // 普朗克常数
+	fmt.Println(&quot;阿伏伽德罗常数：&quot;, Avogadro, &quot;普朗克常数：&quot;, Planck)
+
+	// 默认情况下 float推断 均为float64
+	fl64 := 1.11
+	fmt.Printf(&quot;Float 类型推断： %T \n&quot;, fl64)
+
+	// 复数类型
+	// 用途 ：  反常积分 ,分析系统稳定性的根轨迹法 ，奈奎斯特图法（Nyquist plot）和尼科尔斯图法（Nichols plot）都是在复平面上进行的
+
+	//complex64：实和虚 都为 float32 类型的的复数。
+	//complex128：实和虚 都为 float64 类型的的复数。
+	c1 := complex(1, 2)
+	c2 := 3 + 4i
+	cadd := c1 + c2
+	fmt.Println(&quot;复数和:&quot;, cadd)
+	cmul := c1 * c2
+	fmt.Println(&quot;复数:&quot;, cmul)
+
+	// byte 是 uint8 的别名。 utf8编码
+	// 声明数组
+	// ASCII 码 49 50 51 52
+	data := [4]byte{0x31, 0x32, 0x33, 0x34}
+	str := string(data[:])
+	fmt.Println(&quot;byte 转 string :&quot;, str)
+	// 使用rune 和获取 字符串长度
+	fmt.Println(&quot;rune string 长度 :&quot;, utf8.RuneCountInString(str))
+
+	// rune 是 int32 的别名。
+	str1 := &quot;我叫MT&quot;
+	fmt.Println(&quot;rune 结果&quot;, []rune(str1))
+	fmt.Println(&quot;byte 结果&quot;, []byte(str1))
+
+	//const 关键字常量 初始化赋值
+	// 常量结果不能通过函数 方法赋值给常量
+	const constA = 100
+	fmt.Println(&quot;constA 结果&quot;, constA)
+
+	// IOTA 常量
+	const (
+		a = iota //a=0
+		b = iota //b=1
+		c        //c=2
+		_        //3
+		d        //d=4
+	)
+	fmt.Println(
+		&quot;a is :&quot;, a,
+		&quot;b is :&quot;, b,
+		&quot;c is :&quot;, c,
+		&quot;d is :&quot;, d,
+	)
+
+	// 实战用法
+	type ByteSize float64
+	const (
+		_           = iota             // ignore first value by assigning to blank identifier
+		KB ByteSize = 1 &lt;&lt; (10 * iota) // 1 &lt;&lt; (10*1)
+		MB                             // 1 &lt;&lt; (10*2)
+		GB                             // 1 &lt;&lt; (10*3)
+		TB                             // 1 &lt;&lt; (10*4)
+		PB                             // 1 &lt;&lt; (10*5)
+		EB                             // 1 &lt;&lt; (10*6)
+		ZB                             // 1 &lt;&lt; (10*7)
+		YB                             // 1 &lt;&lt; (10*8)
+	)
+
+	fmt.Println(
+		&quot;KB is &quot;, KB,
+		&quot;\n MB is &quot;, MB,
+		&quot;\n GB is &quot;, GB,
+		&quot;\n TB is &quot;, TB,
+		&quot;\n PB is &quot;, PB,
+		&quot;\n EB is &quot;, EB,
+		&quot;\n EB is &quot;, EB,
+		&quot;\n ZB is &quot;, ZB,
+		&quot;\n YB is &quot;, YB,
+	)
+
+}
+</code></pre><h2 id=函数>函数</h2><pre><code>package main
+
+//引入包
+import (
+	&quot;fmt&quot;
+	&quot;github.com/pkg/errors&quot;
+)
+
+func main() {
+	fmt.Println(TestFunc(33))
+	fmt.Println(TestFunc(10))
+}
+// 函数名称 （接受参数名称 接受参数类型） (返回参数名称 参数类型, 名称 类型)
+func TestFunc(i int) (err error, d int) {
+	if d := i % 10; d == 0 {
+		return nil, d
+	}
+	return errors.New(&quot;无法对10取模&quot;), 0
+}
+</code></pre></section><footer class=article-footer><section class=article-tags><a href=/tags/go/>go</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><div class=disqus-container><div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
+var d=document,s=d.createElement('script');s.async=true;s.src='//'+"hugo-theme-stack"+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2021 阿飞的工作日志</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.0.1>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const customFont=document.createElement('link');customFont.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";customFont.type="text/css";customFont.rel="stylesheet";document.head.appendChild(customFont);}());</script></body></html>
